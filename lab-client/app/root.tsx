@@ -9,7 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import '@mantine/core/styles.css';
+import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 
 export const links: Route.LinksFunction = () => [
