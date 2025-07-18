@@ -2,8 +2,8 @@ import { Top } from "../pages/top";
 
 export function meta() {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Hashikuchi's Lab" },
+    { name: "description", content: "Welcome to Hashikuchi's Lab!" },
   ];
 }
 
