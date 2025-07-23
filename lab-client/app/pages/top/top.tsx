@@ -1,4 +1,4 @@
-import { AppShell, Box, Burger } from "@mantine/core";
+import { AppShell, Box, Burger, List } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 export function Top() {
@@ -26,7 +26,17 @@ export function Top() {
       <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
 
       <AppShell.Main>
-        ここは hashikuchi の実験室です。
+        <Box>ここは hashikuchi の実験室です。</Box>
+        <Box>この実験室は主に以下の言語やツールによって開発されています。
+          <List type="ordered">
+            <List.Item>TypeScript</List.Item>
+            <List.Item>React</List.Item>
+            <List.Item>React Router</List.Item>
+            <List.Item>Mantine</List.Item>
+            <List.Item>Playwright</List.Item>
+            <List.Item>Azure Container Apps</List.Item>
+          </List>
+        </Box>
       </AppShell.Main>
     </AppShell>
   );
