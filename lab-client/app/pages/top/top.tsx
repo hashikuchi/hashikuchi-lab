@@ -25,7 +25,9 @@ export function Top() {
 
       <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
 
-      <AppShell.Main>Main</AppShell.Main>
+      <AppShell.Main>
+        ここは hashikuchi の実験室です。
+      </AppShell.Main>
     </AppShell>
   );
 }
