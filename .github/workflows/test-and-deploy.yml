@@ -179,10 +179,31 @@ jobs:
         STAGING_APP_NAME="hashikuchi-lab-staging-pr${{ github.event.number }}"
         RESOURCE_GROUP="${{ secrets.AZURE_RESOURCE_GROUP }}"
         
-        echo "Cleaning up staging app: $STAGING_APP_NAME"
+        if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+          echo "PR was merged - cleaning up staging app: $STAGING_APP_NAME"
+        else
+          echo "PR was closed without merging - cleaning up staging app: $STAGING_APP_NAME"
+        fi
+        
         if az containerapp show --name $STAGING_APP_NAME --resource-group $RESOURCE_GROUP > /dev/null 2>&1; then
           az containerapp delete --name $STAGING_APP_NAME --resource-group $RESOURCE_GROUP --yes
           echo "Staging app $STAGING_APP_NAME deleted successfully"
         else
           echo "Staging app $STAGING_APP_NAME not found, skipping cleanup"
         fi
+
+    - name: Comment on merged PR
+      if: github.event.pull_request.merged == true
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `✅ **PR merged successfully!**
+            
+            The staging environment \`hashikuchi-lab-staging-pr${{ github.event.number }}\` has been cleaned up.
+            
+            Your changes are now live in production! 🚀`
+          })
