@@ -164,6 +164,28 @@ jobs:
         git tag ${{ steps.timestamp.outputs.timestamp }}
         git push origin ${{ steps.timestamp.outputs.timestamp }}
 
+    - name: Login to Azure CLI for Production Deploy
+      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Production Container App
+      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        # Set variables for production app
+        PRODUCTION_APP_NAME="hashikuchi-lab-client"
+        RESOURCE_GROUP="${{ secrets.AZURE_RESOURCE_GROUP }}"
+        
+        echo "Updating production app: $PRODUCTION_APP_NAME with latest image"
+        az containerapp update \
+          --name $PRODUCTION_APP_NAME \
+          --resource-group $RESOURCE_GROUP \
+          --image ${{ secrets.ACR_SERVER_NAME }}/lab-client:latest
+        
+        echo "Production app updated successfully with image: ${{ secrets.ACR_SERVER_NAME }}/lab-client:latest"
+        echo "Timestamped version also available as: ${{ secrets.ACR_SERVER_NAME }}/lab-client:${{ steps.timestamp.outputs.timestamp }}"
+
   cleanup-staging:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
