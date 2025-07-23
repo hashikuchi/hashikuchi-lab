@@ -26,7 +26,17 @@ export function Top() {
       <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
 
       <AppShell.Main>
-        ここは hashikuchi の実験室です。
+        <Box>ここは hashikuchi の実験室です。</Box>
+        <Box>この実験室は主に以下の言語やツールによって開発されています。
+          <ul>
+            <li>TypeScript</li>
+            <li>React</li>
+            <li>React Router</li>
+            <li>Mantine</li>
+            <li>Playwright</li>
+            <li>Azure Container Apps</li>
+          </ul>
+        </Box>
       </AppShell.Main>
     </AppShell>
   );
