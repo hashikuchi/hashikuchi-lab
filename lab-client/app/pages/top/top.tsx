@@ -1,6 +1,6 @@
 import { Text, AppShell, Box, Burger, List } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBrandReactNative, IconBrandTypescript } from "@tabler/icons-react";
+import { IconBrandReactNative, IconBrandTypescript, IconRoute } from "@tabler/icons-react";
 
 export function Top() {
   const [opened, { toggle }] = useDisclosure();
@@ -32,7 +32,7 @@ export function Top() {
           <List>
             <List.Item icon={<IconBrandTypescript />}>TypeScript</List.Item>
             <List.Item icon={<IconBrandReactNative />} >React</List.Item>
-            <List.Item>React Router</List.Item>
+            <List.Item icon={<IconRoute />}>React Router</List.Item>
             <List.Item>Mantine</List.Item>
             <List.Item>Playwright</List.Item>
             <List.Item>Azure Container Apps</List.Item>
