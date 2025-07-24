@@ -1,6 +1,6 @@
 import { Text, AppShell, Box, Burger, List } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconBrandReactNative } from "@tabler/icons-react";
+import { IconBrandReactNative, IconBrandTypescript } from "@tabler/icons-react";
 
 export function Top() {
   const [opened, { toggle }] = useDisclosure();
@@ -30,7 +30,7 @@ export function Top() {
         <Box>ここは hashikuchi の実験室です。</Box>
         <Box>この実験室は主に以下の言語やツールによって開発されています。
           <List>
-            <List.Item>TypeScript</List.Item>
+            <List.Item icon={<IconBrandTypescript />}>TypeScript</List.Item>
             <List.Item icon={<IconBrandReactNative />} >React</List.Item>
             <List.Item>React Router</List.Item>
             <List.Item>Mantine</List.Item>
