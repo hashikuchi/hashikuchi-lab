@@ -28,7 +28,9 @@
     "quotes": ["error", "double"],
     "jsx-quotes": ["error", "prefer-double"],
     "no-tabs": "error",
-    "indent": ["error", 2, { "SwitchCase": 1 }]
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "array-bracket-spacing": ["error", "always"],
+    "object-curly-spacing": ["error", "always"]
   },
   "env": {
     "browser": true,

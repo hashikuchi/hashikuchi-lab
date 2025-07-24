@@ -1,5 +1,6 @@
-import { AppShell, Box, Burger, List } from "@mantine/core";
+import { Text, AppShell, Box, Burger, List } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { IconBrandReactNative } from "@tabler/icons-react";
 
 export function Top() {
   const [opened, { toggle }] = useDisclosure();
@@ -15,12 +16,12 @@ export function Top() {
     >
       <AppShell.Header>
         <Burger
-          opened={opened} 
+          opened={opened}
           onClick={toggle}
           hiddenFrom="sm"
           size="sm" 
         />
-        <Box p="md">Hashikuchi&apos;s Lab</Box>
+        <Box p="md"><Text size="lg">Hashikuchi&apos;s Lab</Text></Box>
       </AppShell.Header>
 
       <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
@@ -28,9 +29,9 @@ export function Top() {
       <AppShell.Main>
         <Box>ここは hashikuchi の実験室です。</Box>
         <Box>この実験室は主に以下の言語やツールによって開発されています。
-          <List type="ordered">
+          <List>
             <List.Item>TypeScript</List.Item>
-            <List.Item>React</List.Item>
+            <List.Item icon={<IconBrandReactNative />} >React</List.Item>
             <List.Item>React Router</List.Item>
             <List.Item>Mantine</List.Item>
             <List.Item>Playwright</List.Item>
