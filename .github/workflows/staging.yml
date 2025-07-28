@@ -170,6 +170,29 @@ jobs:
           echo "Staging app $STAGING_APP_NAME not found, skipping cleanup"
         fi
 
+    - name: Delete staging Docker image from ACR
+      run: |
+        STAGING_IMAGE_TAG="staging-pr${{ github.event.number }}"
+        REPOSITORY="lab-client"
+        
+        if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+          echo "PR was merged - deleting staging Docker image: $REPOSITORY:$STAGING_IMAGE_TAG"
+          
+          # Check if the image exists
+          if az acr repository show-tags --name ${{ secrets.ACR_SERVER_NAME }} --repository $REPOSITORY --query "[?@=='$STAGING_IMAGE_TAG']" -o tsv | grep -q "$STAGING_IMAGE_TAG"; then
+            # Delete the specific tag
+            az acr repository delete \
+              --name ${{ secrets.ACR_SERVER_NAME }} \
+              --image $REPOSITORY:$STAGING_IMAGE_TAG \
+              --yes
+            echo "Successfully deleted Docker image: $REPOSITORY:$STAGING_IMAGE_TAG"
+          else
+            echo "Docker image $REPOSITORY:$STAGING_IMAGE_TAG not found, skipping deletion"
+          fi
+        else
+          echo "PR was closed without merging - keeping Docker image for potential debugging"
+        fi
+
     - name: Comment on merged PR
       if: github.event.pull_request.merged == true
       uses: actions/github-script@v7
