@@ -106,11 +106,15 @@ jobs:
         PRODUCTION_APP_NAME="hashikuchi-lab-client"
         RESOURCE_GROUP="${{ secrets.AZURE_RESOURCE_GROUP }}"
         
-        echo "Updating production app: $PRODUCTION_APP_NAME with latest image"
+        echo "Deploying with timestamped image: ${{ steps.timestamp.outputs.timestamp }}"
         az containerapp update \
           --name $PRODUCTION_APP_NAME \
           --resource-group $RESOURCE_GROUP \
-          --image ${{ secrets.ACR_SERVER_NAME }}/lab-client:latest
+          --image ${{ secrets.ACR_SERVER_NAME }}/lab-client:${{ steps.timestamp.outputs.timestamp }}
         
-        echo "Production app updated successfully with image: ${{ secrets.ACR_SERVER_NAME }}/lab-client:latest"
-        echo "Timestamped version also available as: ${{ secrets.ACR_SERVER_NAME }}/lab-client:${{ steps.timestamp.outputs.timestamp }}"
+        echo "Verifying deployment..."
+        az containerapp revision list \
+          --name $PRODUCTION_APP_NAME \
+          --resource-group $RESOURCE_GROUP \
+          --query "[?properties.active].{Name:name,Image:properties.template.containers[0].image,Created:properties.createdTime}" \
+          --output table
