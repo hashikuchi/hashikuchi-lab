@@ -9,7 +9,7 @@ export default function CountUp() {
   const { count, increment, reset } = useCountUp();
   return (
     <Box>
-      <Box mb={32}><Text>Current Count: {count}</Text></Box>
+      <Box mb={32}><Text>Current Count: <span data-testid="current-count">{count}</span></Text></Box>
       <Group>
         <Button onClick={increment}>Increment</Button>
         <Button onClick={reset} variant="outline">Reset</Button>
