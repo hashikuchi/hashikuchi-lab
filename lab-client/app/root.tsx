@@ -1,7 +1,6 @@
 import {
   isRouteErrorResponse,
   Links,
-  Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -10,6 +9,7 @@ import {
 import type { Route } from "./+types/root";
 import { MantineProvider, ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { AppShell } from "./layout";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,12 +17,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Hashikuchi&apos;s Lab</title>
         <ColorSchemeScript />
-        <Meta />
         <Links />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <AppShell>{children}</AppShell>
+        </MantineProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -25,6 +25,7 @@ export default tseslint.config(
       "jsx-quotes": ["error", "prefer-double"],
       "no-tabs": "error",
       "indent": ["error", 2, { "SwitchCase": 1 }],
+      "object-curly-spacing": ["error", "always"],
     },
   },
   {
